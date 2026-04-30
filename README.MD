@@ -22,4 +22,4 @@ The release archive contains:
 0. First of all, the software is **not required to be launched manually**. It is launched by a browser extension when it is needed and closes itself when it's not.
 1. Install a compatible browser extension.
 2. Open a page that the extension can work with.
-3. Accept browser's **webrichpresence://** launching prompt (make sure **tick the checkbox** to make it work seamlessly).
+3. Accept browser's **webrichpresence://** launching prompt (make sure to **tick the checkbox** to make it work seamlessly).
