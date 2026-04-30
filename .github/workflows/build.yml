@@ -69,7 +69,7 @@ jobs:
           cp WebRichPresenceW.exe package/ || true
 
       - name: Create archive
-        shell: bash
+        shell: msys2 {0}
         run: |
           cd package
           zip -r ../release.zip .
