@@ -1,0 +1,4 @@
+.cache
+.vscode
+build
+lib/discord_social_sdk
