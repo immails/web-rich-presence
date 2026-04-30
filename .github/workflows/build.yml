@@ -22,14 +22,42 @@ jobs:
         with:
           msystem: MINGW64
           update: true
+          cache: true
           install: >
+            git
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-ninja
             mingw-w64-x86_64-zlib
             mingw-w64-x86_64-openssl
 
-      - name: Clone SDK repo
+      - name: Setup ccache
+        shell: bash
+        run: |
+          echo "CMAKE_C_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
+          echo "CMAKE_CXX_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ccache-${{ runner.os }}-${{ github.ref }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
+
+      - name: Cache build directory
+        uses: actions/cache@v4
+        with:
+          path: build
+          key: build-${{ runner.os }}-${{ hashFiles('CMakeLists.txt') }}
+
+      # - name: Cache Discord SDK
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: lib/discord_social_sdk
+      #     key: discord-sdk-v1
+
+      - name: Clone Discord SDK repo
         run: |
           git clone https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/immails/discord_social_sdk.git lib/discord_social_sdk
 
