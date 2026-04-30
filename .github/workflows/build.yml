@@ -30,6 +30,7 @@ jobs:
             mingw-w64-x86_64-ninja
             mingw-w64-x86_64-zlib
             mingw-w64-x86_64-openssl
+            mingw-w64-x86_64-asio
 
       - name: Cache build directory
         uses: actions/cache@v4
