@@ -3,3 +3,5 @@
 build
 lib/discord_social_sdk/*
 !lib/discord_social_sdk/.gitkeep
+.ossnotices.cache.json
+error.log
