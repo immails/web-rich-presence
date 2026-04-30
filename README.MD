@@ -14,7 +14,7 @@ The release archive contains:
 - discord_social_sdk.dll — a vital component of the software.
 
 ### Installation
-1. Download the latest release archive from releases.
+1. Download the latest release archive from the releases.
 2. Extract it somewhere. The software is portable (as long as it was launched once in a new directory if was moved).
 3. Launch **WebRichPresence*W*.exe**.
 
