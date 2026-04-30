@@ -31,20 +31,6 @@ jobs:
             mingw-w64-x86_64-zlib
             mingw-w64-x86_64-openssl
 
-      - name: Setup ccache
-        shell: bash
-        run: |
-          echo "CMAKE_C_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
-          echo "CMAKE_CXX_COMPILER_LAUNCHER=ccache" >> $GITHUB_ENV
-
-      - name: Cache ccache
-        uses: actions/cache@v4
-        with:
-          path: ~/.ccache
-          key: ccache-${{ runner.os }}-${{ github.ref }}
-          restore-keys: |
-            ccache-${{ runner.os }}-
-
       - name: Cache build directory
         uses: actions/cache@v4
         with:
