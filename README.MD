@@ -1,7 +1,7 @@
 I'm sorry for the ass code, I'm kinda new in the c++ world.
 
 > [!WARNING]
-> Currently supports only Windows
+> Currently only supports Windows
 
 - uses Discord Social SDK
 - uses https://github.com/crowcpp/crow
