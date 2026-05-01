@@ -11,7 +11,7 @@ I'm sorry for the ass code, I'm kinda new in the c++ world.
 The release archive contains:
 - WebRichPresenceW.exe — the software itself;
 - WebRichPresence.exe — a verbose version of the software that launches with a terminal for troubleshooting purposes;
-- discord_social_sdk.dll — a vital component of the software.
+- discord_partner_sdk.dll — a vital component of the software.
 
 ### Installation
 1. Download [the latest release archive](https://github.com/immails/web-rich-presence/releases/latest/download/release.zip) from the releases.
