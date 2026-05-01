@@ -17,6 +17,8 @@ export enum ACTIVITY_TYPES {
 }
 
 export namespace ServerCommands {
+	export type All = SetApplicationID | Clear | SetType | SetDetails | SetState | SetTimestamps | SetAssets;
+
 	export interface BaseServerCommand {
 		"command": WS_SERVER_COMMANDS
 	}
@@ -69,6 +71,8 @@ export namespace ServerCommands {
 }
 
 export namespace ClientCommands {
+	export type All = SendVersion;
+
 	export interface BaseClientCommand {
 		"command": WS_CLIENT_COMMANDS
 	}
