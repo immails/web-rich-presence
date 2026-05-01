@@ -36,6 +36,11 @@ jobs:
             mingw-w64-x86_64-openssl
             mingw-w64-x86_64-asio
 
+      - name: Install NSIS
+        shell: pwsh
+        run: |
+          choco install nsis -y
+
       - name: Cache build directory
         uses: actions/cache@v4
         with:
@@ -54,25 +59,32 @@ jobs:
 
       - name: Configure CMake
         run: |
+          VERSION=${GITHUB_REF_NAME#v}
+
           cmake -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH=/mingw64
+            -DCMAKE_PREFIX_PATH=/mingw64 \
+            -DAPP_VERSION=$VERSION
 
       - name: Build
         run: cmake --build build
 
-      - name: Collect artifacts
-        shell: bash
-        run: |
-          mkdir -p package
+      # - name: Collect artifacts
+      #   shell: bash
+      #   run: |
+      #     mkdir -p package
 
-          cp -r build/bin/* package/ || true
+      #     cp -r build/bin/* package/ || true
+
+      - name: Make installer
+        shell: pwsh
+        run: |
+          makensis installer.nsi
 
       - name: Create archive
         shell: msys2 {0}
         run: |
-          cd package
-          zip -r ../release.zip .
+          zip -r ./release.zip ./build/bin/*
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -84,10 +96,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
+            WebRichPresenceSetup.exe
             release.zip
-            WebRichPresenceW.exe
-            WebRichPresence.exe
-            discord_partner_sdk.dll
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

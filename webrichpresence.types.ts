@@ -1,74 +1,80 @@
-export namespace WebRichPresence {
-	export enum WSCommand {
-		SetApplicationID = 0, 
-		Clear = 1, 
-		SetType = 2, 
-		SetDetails = 3, 
-		SetState = 4, 
-		SetName = 5, 
-		SetTimestamps = 6, 
-		SetAssets = 7
+export enum WS_SERVER_COMMANDS {
+	SetApplicationID, Clear, SetType, SetDetails, SetState, SetName, SetTimestamps, SetAssets, 
+};
+
+export enum WS_CLIENT_COMMANDS {
+	SendVersion
+};
+
+export enum ACTIVITY_TYPES {
+	Playing = 0,
+	Streaming = 1,
+	Listening = 2,
+	Watching = 3,
+	CustomStatus = 4,
+	Competing = 5,
+	HangStatus = 6,
+}
+
+export namespace ServerCommands {
+	export interface BaseServerCommand {
+		"command": WS_SERVER_COMMANDS
 	}
 
-	export enum ActivityTypes {
-		Playing = 0,
-		Streaming = 1,
-		Listening = 2,
-		Watching = 3,
-		CustomStatus = 4,
-		Competing = 5,
-		HangStatus = 6,
+	export interface SetApplicationID extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetApplicationID,
+		"id": string
 	}
 
-	export interface Command {
-		"command": WSCommand
+	export interface Clear extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.Clear
 	}
 
-	export namespace Commands {
-		export interface SetApplicationID {
-			"command": WSCommand.SetApplicationID,
-			"id": string
-		}
+	export interface SetType extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetType,
+		"type": ACTIVITY_TYPES
+	}
 
-		export interface Clear {
-			"command": WSCommand.Clear
-		}
+	export interface SetDetails extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetDetails,
+		"details": string | null
+	}
 
-		export interface SetType {
-			"command": WSCommand.SetType,
-			"type": ActivityTypes
-		}
+	export interface SetState extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetState,
+		"state": string | null
+	}
 
-		export interface SetDetails {
-			"command": WSCommand.SetDetails,
-			"details": string | null
-		}
+	export interface SetName extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetName,
+		"name": string
+	}
 
-		export interface SetState {
-			"command": WSCommand.SetState,
-			"state": string | null
-		}
+	export interface SetTimestamps extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetTimestamps,
+		"start"?: number | null,
+		"end"?: number | null
+	}
 
-		export interface SetName {
-			"command": WSCommand.SetName,
-			"name": string
-		}
+	export interface SetAssets extends BaseServerCommand {
+		"command": WS_SERVER_COMMANDS.SetAssets,
+		"large_image_key"?: string | null
+		"large_image_text"?: string | null
+		"large_image_url"?: string | null
+		"small_image_key"?: string | null
+		"small_image_text"?: string | null
+		"small_image_url"?: string | null
+		// TODO: Add other assets
+	}
+}
 
-		export interface SetTimestamps {
-			"command": WSCommand.SetTimestamps,
-			"start"?: number | null,
-			"end"?: number | null
-		}
+export namespace ClientCommands {
+	export interface BaseClientCommand {
+		"command": WS_CLIENT_COMMANDS
+	}
 
-		export interface SetAssets {
-			"command": WSCommand.SetAssets,
-			"large_image_key"?: string | null
-			"large_image_text"?: string | null
-			"large_image_url"?: string | null
-			"small_image_key"?: string | null
-			"small_image_text"?: string | null
-			"small_image_url"?: string | null
-			// TODO: Add other assets
-		}
+	export interface SendVersion extends BaseClientCommand {
+		"command": WS_CLIENT_COMMANDS.SendVersion,
+		"version": string
 	}
 }

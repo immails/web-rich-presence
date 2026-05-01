@@ -13,8 +13,12 @@ using namespace std;
 using namespace discordpp;
 using json = nlohmann::json;
 
-enum WSCommand {
-	SetApplicationID, Clear, SetType, SetDetails, SetState, SetName, SetTimestamps, SetAssets
+enum WS_SERVER_COMMANDS {
+	SET_APPLICATION_ID, CLEAR, SET_TYPE, SET_DETAILS, SET_STATE, SET_NAME, SET_TIMESTAMPS, SET_ASSETS
+};
+
+enum WS_CLIENT_COMMANDS {
+	SEND_VERISON
 };
 
 auto client = std::make_shared<discordpp::Client>();
@@ -79,7 +83,13 @@ int main(int argsCount, char* args[]) {
 		return true;
 	})
 	.onopen([&](crow::websocket::connection& conn) {
+		string versionMessage = json({
+			{ "command", WS_CLIENT_COMMANDS::SEND_VERISON },
+			{ "version", APP_VERSION }
+		}).dump();
+
 		connections.push_back(&conn);
+		conn.send_text(versionMessage);
 		lock_guard<mutex> lock(asdmtx);
 		cancelled = true;
 		asdcv.notify_one();
@@ -88,33 +98,33 @@ int main(int argsCount, char* args[]) {
 		auto jdata = json::parse(data);
 
 		for (auto item : jdata) {
-			WSCommand command { item.at("command") };
+			WS_SERVER_COMMANDS command { item.at("command") };
 
 			switch (command) {
-				case WSCommand::SetApplicationID: {
+				case WS_SERVER_COMMANDS::SET_APPLICATION_ID: {
 					auto id = stoull((string) item.at("id"));
 					cout << "Application ID = " << id << "\n";
 					client->SetApplicationId(id);
 					break;
 				}
-				case WSCommand::Clear: {
+				case WS_SERVER_COMMANDS::CLEAR: {
 					cout << "(Cleared)" << "\n";
 					client->ClearRichPresence();
 					break;
 				}
-				case WSCommand::SetType: {
+				case WS_SERVER_COMMANDS::SET_TYPE: {
 					activity.SetType(item.at("type"));
 					cout << "Type = " << item.at("type") << "\n";
 					break;
 				}
-				case WSCommand::SetName: {
+				case WS_SERVER_COMMANDS::SET_NAME: {
 					const auto str = makeCompatiblePresenceString(item["name"]);
 					activity.SetName(str);
 
 					cout << "Name = " << str << "\n";
 					break;
 				}
-				case WSCommand::SetDetails: {
+				case WS_SERVER_COMMANDS::SET_DETAILS: {
 					if (item.at("details").is_null()) activity.SetDetails(nullopt);
 					else {
 						const auto str = makeCompatiblePresenceString(item["details"]);
@@ -124,7 +134,7 @@ int main(int argsCount, char* args[]) {
 					}
 					break;
 				}
-				case WSCommand::SetState: {
+				case WS_SERVER_COMMANDS::SET_STATE: {
 					if (item.at("state").is_null()) activity.SetState(nullopt);
 					else {
 						const auto str = makeCompatiblePresenceString(item["state"]);
@@ -134,7 +144,7 @@ int main(int argsCount, char* args[]) {
 					}
 					break;
 				}
-				case WSCommand::SetTimestamps: {
+				case WS_SERVER_COMMANDS::SET_TIMESTAMPS: {
 					auto timestamps = make_optional<ActivityTimestamps>();
 
 					if (item["start"].is_null() == false) {
@@ -152,7 +162,7 @@ int main(int argsCount, char* args[]) {
 					activity.SetTimestamps(timestamps);
 					break;
 				}
-				case WSCommand::SetAssets: {
+				case WS_SERVER_COMMANDS::SET_ASSETS: {
 					auto assets = make_optional<ActivityAssets>();
 
 					if (item.contains("large_image_key")) {

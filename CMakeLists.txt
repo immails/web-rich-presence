@@ -12,7 +12,14 @@ find_package(OpenSSL REQUIRED)
 add_executable(WebRichPresence src/main.cpp)
 add_executable(WebRichPresenceW WIN32 src/main.cpp)
 
+if(NOT DEFINED APP_VERSION)
+    set(APP_VERSION "dev")
+endif()
+
 function(configure_target tgt)
+    target_compile_definitions(${tgt} PRIVATE
+        APP_VERSION="${APP_VERSION}"
+    )
 
     set(DISCORD_SDK_ROOT "${CMAKE_SOURCE_DIR}/lib/discord_social_sdk")
     set(DISCORD_SDK_LIB_DIR "${DISCORD_SDK_ROOT}/lib/release")
