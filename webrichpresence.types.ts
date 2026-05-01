@@ -1,6 +1,13 @@
-declare namespace WebRichPresence {
+export namespace WebRichPresence {
 	export enum WSCommand {
-		SetApplicationID, Clear, SetType, SetDetails, SetState, SetName, SetTimestamps, SetAssets
+		SetApplicationID = 0, 
+		Clear = 1, 
+		SetType = 2, 
+		SetDetails = 3, 
+		SetState = 4, 
+		SetName = 5, 
+		SetTimestamps = 6, 
+		SetAssets = 7
 	}
 
 	export enum ActivityTypes {
@@ -17,7 +24,7 @@ declare namespace WebRichPresence {
 		"command": WSCommand
 	}
 
-	namespace Commands {
+	export namespace Commands {
 		export interface SetApplicationID {
 			"command": WSCommand.SetApplicationID,
 			"id": string

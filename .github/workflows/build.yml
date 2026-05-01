@@ -68,9 +68,6 @@ jobs:
 
           cp -r build/bin/* package/ || true
 
-          cp discord_social_sdk.dll package/ || true
-          cp WebRichPresenceW.exe package/ || true
-
       - name: Create archive
         shell: msys2 {0}
         run: |
@@ -86,6 +83,11 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release.zip
+          files: |
+            release.zip
+            WebRichPresenceW.exe
+            WebRichPresence.exe
+            discord_partner_sdk.dll
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
