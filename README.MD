@@ -9,6 +9,9 @@ I'm sorry for the ass code, I'm kinda new in the c++ world.
 2. Open a page that the extension can work with.
 3. Accept browser's **webrichpresence://** launching prompt (make sure to **tick the checkbox** to make it work seamlessly).
 
+### Compatible Extensions:
+- [SoundCloud Rich Presence](https://addons.mozilla.org/en-US/firefox/addon/soundcloud-rich-presence/)
+
 ### Packaging
 The release archive contains:
 - WebRichPresenceW.exe — the software itself;
