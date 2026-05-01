@@ -14,9 +14,9 @@ The release archive contains:
 - discord_social_sdk.dll — a vital component of the software.
 
 ### Installation
-1. Download the latest release archive from the releases.
+1. Download [the latest release archive](https://github.com/immails/web-rich-presence/releases/latest/download/release.zip) from the releases.
 2. Extract it somewhere. The software is portable (as long as it was launched once in a new directory if was moved).
-3. Launch **WebRichPresence*W*.exe**.
+3. Launch **WebRichPresence__W__.exe**.
 
 ### Usage
 0. First of all, the software is **not required to be launched manually**. It is launched by a browser extension when it is needed and closes itself when it's not.
