@@ -95,20 +95,21 @@ jobs:
       - name: Create archive
         shell: msys2 {0}
         run: |
-          zip -r ./release.zip ./build/bin/*
+          cd ./build/bin/
+          zip -r ../../WebRichPresencePortable.zip ./*
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: release.zip
+          path: WebRichPresencePortable.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             WebRichPresenceSetup.exe
-            release.zip
+            WebRichPresencePortable.zip
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
