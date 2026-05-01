@@ -36,10 +36,14 @@ jobs:
             mingw-w64-x86_64-openssl
             mingw-w64-x86_64-asio
 
-      - name: Install NSIS
+      - name: Download NSIS
         shell: pwsh
         run: |
-          choco install nsis -y
+          Invoke-WebRequest `
+            -Uri "https://altushost-swe.dl.sourceforge.net/project/nsis/NSIS%203/3.12/nsis-3.12.zip?viasf=1&fid=f22debbde4014ca0" `
+            -OutFile nsis.zip
+
+          Expand-Archive nsis.zip -DestinationPath "$PWD\nsis"
 
       - name: Cache build directory
         uses: actions/cache@v4
@@ -79,7 +83,7 @@ jobs:
       - name: Make installer
         shell: pwsh
         run: |
-          makensis installer.nsi
+          & "$PWD\nsis\nsis-3.12\makensis.exe" installer.nsi
 
       - name: Create archive
         shell: msys2 {0}
