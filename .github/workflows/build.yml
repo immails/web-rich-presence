@@ -28,6 +28,7 @@ jobs:
           cache: true
           install: >
             git
+            git-lfs
             zip
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-cmake
