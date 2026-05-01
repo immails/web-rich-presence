@@ -11,7 +11,7 @@ I'm sorry for the ass code, I'm kinda new in the c++ world.
 
 ### Compatible Extensions:
 - [SoundCloud Rich Presence](https://addons.mozilla.org/en-US/firefox/addon/soundcloud-rich-presence/)
-[SoundCloud Rich Presence Example](https://github.com/immails/web-rich-presence/blob/main/example.png?raw=true)
+![SoundCloud Rich Presence Example](https://github.com/immails/web-rich-presence/blob/main/example.png?raw=true)
 
 ### Packaging
 The release archive contains:
