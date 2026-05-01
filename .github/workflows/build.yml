@@ -28,7 +28,7 @@ jobs:
           cache: true
           install: >
             git
-            git-lfs
+            mingw-w64-x86_64-git-lfs
             zip
             mingw-w64-x86_64-toolchain
             mingw-w64-x86_64-cmake
@@ -36,6 +36,12 @@ jobs:
             mingw-w64-x86_64-zlib
             mingw-w64-x86_64-openssl
             mingw-w64-x86_64-asio
+
+      - name: Git LFS Setup
+        run: |
+          /mingw64/bin/git-lfs install
+          cp /mingw64/bin/git-lfs /usr/bin/
+          git lfs install
 
       - name: Download NSIS
         shell: pwsh
