@@ -3,9 +3,11 @@ I'm sorry for the ass code, I'm kinda new in the c++ world.
 > [!WARNING]
 > Currently only supports Windows
 
-- uses Discord Social SDK
-- uses https://github.com/crowcpp/crow
-- uses https://github.com/nlohmann/json
+### User Usage
+0. First of all, the software is **not required to be launched manually**. It is launched by a browser extension when it is needed and closes itself when it's not.
+1. Install a compatible browser extension.
+2. Open a page that the extension can work with.
+3. Accept browser's **webrichpresence://** launching prompt (make sure to **tick the checkbox** to make it work seamlessly).
 
 ### Packaging
 The release archive contains:
@@ -18,8 +20,18 @@ The release archive contains:
 2. Extract it somewhere. The software is portable (as long as it was launched once in a new directory if was moved).
 3. Launch **WebRichPresenceW.exe**.
 
-### Usage
+### User Usage
 0. First of all, the software is **not required to be launched manually**. It is launched by a browser extension when it is needed and closes itself when it's not.
 1. Install a compatible browser extension.
 2. Open a page that the extension can work with.
 3. Accept browser's **webrichpresence://** launching prompt (make sure to **tick the checkbox** to make it work seamlessly).
+
+### Developer Usage
+1. Launch the software from JavaScript by opening the `webrichpresence://<identifier>/<port>"` URI, e.g. `window.location.href = "webrichpresence://<identifier>/<port>"`;
+2. Connect to the software via [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket): `ws://localhost:<port>/<identifier>`;
+3. Start sending commands. Types are available at [webrichpresence.types.ts](https://github.com/immails/web-rich-presence/blob/main/webrichpresence.types.ts).
+
+### About
+- uses Discord Social SDK
+- uses https://github.com/crowcpp/crow
+- uses https://github.com/nlohmann/json
